@@ -1,0 +1,11 @@
+MANIFEST.in
+setup.py
+motorized_camera/__init__.py
+motorized_camera/__main__.py
+motorized_camera/camera.py
+motorized_camera/remotectrl.html
+motorized_camera.egg-info/PKG-INFO
+motorized_camera.egg-info/SOURCES.txt
+motorized_camera.egg-info/dependency_links.txt
+motorized_camera.egg-info/requires.txt
+motorized_camera.egg-info/top_level.txt

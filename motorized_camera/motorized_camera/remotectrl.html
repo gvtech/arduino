@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/ecmascript">
+    function clickbutton(evt) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("statusline").innerHTML = xhttp.responseText;
+            }
+        };
+      xhttp.open("GET", "movecamera/"+evt.target.attributes.cmd.value, true);
+      xhttp.send();
+    }
+</script>
+
+</head>
+<body>
+
+<h1 style="text-align:center">Camera Remote Control</h1>
+<div id="content" style="width: 100%; height: 100%">
+<svg  viewBox="0 0 200 350" >
+   <circle cx="100" cy="100" r="90" stroke="black" stroke-width="4" fill="lightgrey" />
+   <polygon cmd="right" points="180,100 140,70 140,130" style="fill:grey;stroke:black;stroke-width:1" onclick='clickbutton(evt)'/>
+   <polygon cmd="left" points="20,100 60,70 60,130" style="fill:grey;stroke:black;stroke-width:1" onclick='clickbutton(evt)'/>
+   <polygon cmd="top" points="100,20 70,60 130,60" style="fill:grey;stroke:black;stroke-width:1" onclick='clickbutton(evt)'/>
+   <polygon cmd="down" points="100,180 70,140 130,140" style="fill:grey;stroke:black;stroke-width:1" onclick='clickbutton(evt)'/>
+
+   <circle cmd="go1" cx="40" cy="220" r="30" stroke="black" stroke-width="4" fill="lightgrey" onclick='clickbutton(evt)'/>
+   <text cmd="go1" x="40" y="220" text-anchor="middle" fill="black" font-size="20px" font-family="Arial" dy=".3em">Go 1</text>
+   <circle cmd="set1" cx="40" cy="300" r="30" stroke="black" stroke-width="4" fill="lightgrey" onclick='clickbutton(evt)'/>
+   <text cmd="set1" x="40" y="300" text-anchor="middle" fill="black" font-size="20px" font-family="Arial" dy=".3em">Set 1</text>
+   <circle cmd="go2"   cx="160" cy="220" r="30" stroke="black" stroke-width="4" fill="lightgrey" onclick='clickbutton(evt)'/>
+   <text cmd="go2" x="160" y="220" text-anchor="middle" fill="black" font-size="20px" font-family="Arial" dy=".3em">Go 2</text>
+   <circle cmd="set2" cx="160" cy="300" r="30" stroke="black" stroke-width="4" fill="lightgrey" onclick='clickbutton(evt)'/>
+   <text cmd="set2" x="160" y="300" text-anchor="middle" fill="black" font-size="20px" font-family="Arial" dy=".3em">Set 2</text>
+
+   Sorry, your browser does not support inline SVG.
+</svg>
+</div>
+<div id="statusline" style="width: 100%; height: 30px; background-color:lightgrey; padding:10px">
+  OK
+</div>
+</body>
+</html>
