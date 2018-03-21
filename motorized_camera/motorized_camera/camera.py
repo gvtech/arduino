@@ -1,5 +1,6 @@
 import serial
 from serial.tools import list_ports
+from time import sleep
 
 class CameraControl(object):
     def __init__(self,pitch,yaw,increment):
@@ -9,6 +10,7 @@ class CameraControl(object):
         self._increment=increment
         self.usbport=None
         self._usbserial=None
+        self._speed=5
 
     def get_camera_port(self):
         if self.usbport is None:
@@ -23,6 +25,7 @@ class CameraControl(object):
         if self._usbserial is None:
             try:
                 self._usbserial=serial.Serial(self.get_camera_port(), 9600)
+                self._usbserial.write("S%d"%self._speed)
             except Exception,e:
                 print("Camera not connected")
                 self.usbport=None
@@ -30,8 +33,9 @@ class CameraControl(object):
         return self._usbserial
 
     def sendcmd(self,cmd,param):
-        print("sending: %s%d"%(cmd,param))
-        self.get_camera_connection().write("%s%d"%(cmd,param))
+        cmdline="%s%d"%(cmd,param)
+        print("sending: "+cmdline)
+        self.get_camera_connection().write(cmdline)
         self.get_camera_connection().flush()
         print("done")
 
@@ -54,6 +58,7 @@ class CameraControl(object):
                 print("restoring:"+pos)
                 self._yaw,self._pitch=self._positions[pos]
                 self.sendcmd("Y",self._yaw)
+                sleep(1)
                 self.sendcmd("P",self._pitch)
         elif movedir.startswith("set"):
             pos=movedir[-1]
